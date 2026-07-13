@@ -153,11 +153,12 @@ mark {
 }
 
 .discipline-badge {
-  background-color: var(--badge-discipline-bg);
-  color: var(--badge-discipline-text);
+  background-color: var(--bg-secondary);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
 }
 
-/* generic/custom tags used in index.json can fall back on a neutral clean style */
+/* De andre tilpassede emneordene beholder samme rene uttrykk */
 .badge:not(.discipline-badge) {
   background-color: var(--bg-secondary);
   color: var(--text-muted);
