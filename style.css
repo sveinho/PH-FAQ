@@ -1,0 +1,428 @@
+/* ==========================================================================
+   1. GLOBAL STYLES & LAYOUT
+   ========================================================================== */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+  background-color: #fcfcfc;
+  color: #333;
+  overflow-y: scroll; 
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+mark { 
+  background-color: #ffeb3b; 
+  padding: 0 2px; 
+  border-radius: 2px; 
+}
+
+/* ==========================================================================
+   2. SEARCH COMPONENT
+   ========================================================================== */
+.search-wrapper { 
+  position: relative; 
+  margin-bottom: 15px; 
+}
+
+#searchInput { 
+  width: 100%; 
+  padding: 14px; 
+  font-size: 16px; 
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+  box-sizing: border-box; 
+}
+
+#resetSearchBtn { 
+  position: absolute; 
+  right: 14px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  background: none; 
+  border: none; 
+  font-size: 18px; 
+  cursor: pointer; 
+  color: #999; 
+}
+
+#searchCounter { 
+  font-size: 14px; 
+  color: #666; 
+  margin-bottom: 20px; 
+}
+
+#noResults { 
+  text-align: center; 
+  padding: 40px 20px; 
+  background: #fff; 
+  border-radius: 8px; 
+  border: 1px dashed #ccc; 
+}
+
+/* ==========================================================================
+   3. ARTICLE CARDS & METADATA
+   ========================================================================== */
+#articlesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filterable { 
+  background: #fff; 
+  padding: 22px; 
+  border-radius: 8px; 
+  border: 1px solid #eee; 
+  border-left: 4px solid transparent; /* Reserverer plass til venstremargen */
+  cursor: pointer; 
+  transition: background-color 0.2s ease, border-color 0.2s ease; 
+}
+
+.filterable:hover { 
+  background-color: #fbfbfb; 
+  border-color: #cbd5e1;
+  border-left-color: #0066cc; /* Profesjonell blåfarge dukker opp på venstre side */
+}
+
+.filterable h2 { 
+  margin-top: 0; 
+  margin-bottom: 6px; 
+  font-size: 22px; 
+  color: #111;
+}
+
+.filterable .abstract-text { 
+  margin: 0; 
+  line-height: 1.6; 
+  color: #444;
+}
+
+/* Metadata-linjen plassert rett under tittelen */
+.article-meta-inline {
+  margin-bottom: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.discipline-badge {
+  background-color: #475569;
+  color: #f8fafc;
+}
+
+.status-recommendable {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-migrate {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status-debatable {
+  background-color: #fd7e14;
+  color: white;
+}
+
+/* ==========================================================================
+   4. EXPANDED CONTENT & TARGETED MARKDOWN TYPOGRAPHY
+   ========================================================================== */
+.full-content {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #eee;
+  line-height: 1.6;
+}
+
+/* Sørger for pen avstand mellom avsnitt generert av Markdown-it */
+.full-content p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+/* Overskrifter generert av Markdown i hovedteksten (f.eks. ####) */
+.full-content h4 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.identification-content, 
+.authority-content {
+  margin-top: 15px;
+  padding: 16px;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+.identification-content h4, 
+.authority-content h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.identification-content {
+  background-color: #f8f9fa;
+  border-left: 4px solid #6c757d;
+}
+
+.identification-content p {
+  color: #495057;
+}
+
+.authority-content {
+  background-color: #f0f4f8; 
+  border-left: 4px solid #0056b3; 
+}
+
+.authority-content p {
+  color: #334155;
+}
+
+/* Sørger for pen formatering av Markdown-lister direkte i hovedteksten */
+.full-content ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.full-content li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+
+.full-content li:last-child,
+.identification-content li:last-child,
+.authority-content li:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   5. INTERACTION BUTTONS
+   ========================================================================== */
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #0056b3;
+  font-weight: bold;
+  padding: 0;
+  margin-top: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  display: block;
+}
+
+.read-more-btn:hover {
+  text-decoration: underline;
+}
+
+.close-article-btn {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.2s;
+}
+
+.close-article-btn:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+/* Beholderen som sentrerer "Last mer"-knappen */
+#loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  width: 100%;
+}
+
+#loadMoreBtn {
+  background-color: #0066cc;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#loadMoreBtn:hover {
+  background-color: #0052a3;
+}
+
+#loadMoreBtn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   6. UTILITY CLASSES (JAVASCRIPT DEPENDENCIES)
+   ========================================================================== */
+.hidden { 
+  display: none !important; 
+}
+
+.invisible { 
+  visibility: hidden; 
+}
+
+/* Stil for kopieringsknappen */
+.share-btn {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-right: 10px;
+  transition: all 0.2s;
+}
+
+.share-btn:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.share-btn.copied {
+  background-color: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+/* ==========================================================================
+   7. ADVANCED MARKDOWN TYPOGRAPHY (MARKDOWN-IT EXTENSIONS)
+   ========================================================================== */
+
+/* Stiler for tabeller i fullteksten */
+.full-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 15px;
+}
+
+.full-content th, 
+.full-content td {
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.full-content th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.full-content tr:nth-child(even) {
+  background-color: #fdfdfd;
+}
+
+/* Stiler for sitat- og infobokser (Blockquotes) */
+.full-content blockquote {
+  margin: 20px 0;
+  padding: 12px 18px;
+  background-color: #f8fafc;
+  border-left: 4px solid #0066cc;
+  color: #475569;
+  border-radius: 0 6px 6px 0;
+}
+
+.full-content blockquote p {
+  margin: 0;
+}
+
+/* Stiler for inline-kode (f.eks. `fmt/11`) */
+.full-content code {
+  font-family: monospace;
+  background-color: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Stiler for store kodeblokker (``` ) */
+.full-content pre {
+  background-color: #1e293b;
+  color: #f8fafc;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+.full-content pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: 14px;
+}
+/* ==========================================================================
+   8. SKELETON LOADING UI (PERFORMANCE OPTIMIZATION)
+   ========================================================================== */
+.skeleton-card {
+  background: #fff;
+  padding: 22px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none; /* Hindrer klikk mens det laster */
+}
+
+.skeleton-title, 
+.skeleton-meta, 
+.skeleton-text {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+.skeleton-title {
+  width: 40%;
+  height: 24px;
+}
+
+.skeleton-meta {
+  width: 20%;
+  height: 16px;
+}
+
+.skeleton-text {
+  width: 100%;
+  height: 40px;
+}
+
+@keyframes skeleton-pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
