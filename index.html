@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions (FAQ)</title>
+  <!-- Connects to your cleaned stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Loads the local markdown library in the background without blocking render -->
+  <script src="markdown-it.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <h1>Frequently Asked Questions</h1>
+
+  <!-- Central Search Wrapper -->
+  <div class="search-wrapper">
+    <input type="text" id="searchInput" placeholder="Search questions by keyword or topic (e.g., Markdown, Serverless)..." autocomplete="off">
+    <button id="resetSearchBtn" class="invisible">✕</button>
+  </div>
+  
+  <!-- Status and Feedback -->
+  <p id="searchCounter">Loading registry index...</p>
+  
+  <!-- Result Container with Temporary Skeleton UI -->
+  <div id="articlesContainer">
+    <div class="skeleton-card">
+      <div class="skeleton-title"></div>
+      <div class="skeleton-meta"></div>
+      <div class="skeleton-text"></div>
+    </div>
+    <div class="skeleton-card">
+      <div class="skeleton-title"></div>
+      <div class="skeleton-meta"></div>
+      <div class="skeleton-text"></div>
+    </div>
+    <div class="skeleton-card">
+      <div class="skeleton-title"></div>
+      <div class="skeleton-meta"></div>
+      <div class="skeleton-text"></div>
+    </div>
+  </div>
+  
+  <div id="noResults" class="hidden"><h3>No matching topics found.</h3></div>
+
+  <!-- Load More Wrapper -->
+  <div id="loadMoreWrapper" class="hidden">
+    <button id="loadMoreBtn">Load more questions</button>
+  </div>
+
+</body>
+</html>
