@@ -16,23 +16,23 @@ document.addEventListener('DOMContentLoaded', function() {
   const ITEMS_PER_PAGE = 10; 
   let displayedCount = ITEMS_PER_PAGE; 
 
-  // 1. Last inn den lette indeksen, og sjekk om det finnes en direktelenke i URL-en
+  // 1. Load the lightweight index and check for direct links in the URL
   async function loadArticles() {
     try {
       const response = await fetch('index.json');
       if (!response.ok) throw new Error('Failed to load JSON registry data');
       allArticles = await response.json();
       
-      // Sjekk om URL-en inneholder en spesifikk ID (f.eks. minside.no/?id=png)
+      // Check if URL contains a specific ID (e.g., ://mysite.com)
       const urlParams = new URLSearchParams(window.location.search);
       const urlId = urlParams.get('id');
       
       if (urlId && allArticles.some(a => a.id === urlId)) {
         activeArticleId = urlId;
-        filterArticles(false); // Vis listen uten å nullstille antall elementer
-        triggerDirectLinkFetch(urlId); // Hent og vis Markdown-filen med en gang
+        filterArticles(false); // Show list without resetting visible count
+        triggerDirectLinkFetch(urlId); // Fetch and display the Markdown file immediately
       } else {
-        filterArticles(true); // Normal oppstart uten filter
+        filterArticles(true); // Normal startup without active filter
       }
     } catch (error) {
       console.error(error);
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Hjelpefunksjon for å hente Markdown-filen automatisk ved direktelenking
+  // Helper function to fetch the Markdown file automatically during direct linking
   async function triggerDirectLinkFetch(articleId) {
     const targetArticle = allArticles.find(a => a.id === articleId);
     if (targetArticle && !targetArticle.markdownContent) {
@@ -51,11 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!res.ok) throw new Error('Markdown file not found');
         const mdText = await res.text();
         
-        // Lagre rå-teksten i minnet på objektet
+        // Save the raw text in memory cache
         targetArticle.markdownContent = mdText;
         filterArticles(false);
         
-        // Rull pent ned til det åpnede kortet
+        // Smoothly scroll down to the opened card
         setTimeout(() => {
           const el = articlesContainer.querySelector(`[data-id="${articleId}"]`);
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
   }
 
-  // SØKEMOTOR: Sorterer og vekter treffene dine nøyaktig som før
+  // SEARCH ENGINE: Sorts and weights your matches as before
   function filterArticles(isNewQuery = false) {
     if (!articlesContainer) return;
     
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     renderArticles();
   }
-  // Håndterer opptegning og begrensning av treff (Slice)
+  // Handles rendering and entry pagination (Slice)
   function renderArticles() {
     const searchWords = searchQuery.split(' ').filter(Boolean);
     const isSearching = searchWords.length > 0;
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `<span class="badge status-${tag.toLowerCase().trim()}">${tag}</span>`
       ).join(' ');
 
-      // RENDERING: Hele Markdown-filen tegnes nå i én samlet flyt uten oppsplitting
+      // RENDERING: The entire Markdown file is rendered in one stream without splitting
       let expandedHTML = '';
       if (isExpanded) {
         const md = window.markdownit ? window.markdownit() : null;
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         `;
       } else {
-        expandedHTML = `<button class="read-more-btn">Read full description →</button>`;
+        expandedHTML = `<button class="read-more-btn">Read full answer →</button>`;
       }
 
       return `
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="article-header">
             <h2>${displayTitle}</h2>
             <div class="article-meta-inline">
-              <span class="badge discipline-badge">Discipline: ${disciplineValue}</span>
+              <span class="badge discipline-badge">Topic: ${disciplineValue}</span>
               ${tagsHTML}
             </div>
           </div>
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Henter den eksterne .md-filen og håndterer deleknapp
+  // Fetches the external .md file and handles the share button
   function attachArticleClickEvents() {
     articlesContainer.querySelectorAll('.filterable').forEach(articleEl => {
       
@@ -298,8 +298,8 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateSearchUI(count, isSearching) {
     if (searchCounter) {
       searchCounter.textContent = isSearching 
-        ? `Found ${count} matching formats sorted by relevance`
-        : `Registry index loaded. Total formats available: ${count}`;
+        ? `Found ${count} matching topics sorted by relevance`
+        : `FAQ index loaded. Total questions available: ${count}`;
     }
     if (noResults) noResults.classList.toggle('hidden', count > 0);
   }
