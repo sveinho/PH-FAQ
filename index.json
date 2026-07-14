@@ -3,28 +3,24 @@
     "id": "what-is-this",
     "discipline": "architecture",
     "title": "What is this platform and how does it work?",
-    "abstract": "A foundational introduction to the serverless CMS architecture powering this website.",
     "tags": ["concept", "serverless"]
   },
   {
     "id": "how-to-contribute",
     "discipline": "contributing",
     "title": "How can I write or edit an article?",
-    "abstract": "A step-by-step guide for contributors to create or modify content using plain Markdown.",
     "tags": ["guide", "markdown"]
   },
   {
     "id": "why-so-fast",
     "discipline": "performance",
     "title": "Why does this website load so instantly?",
-    "abstract": "A technical breakdown of how Single Page Application logic and browser caching eliminate latency.",
     "tags": ["technical", "optimization"]
   },
   {
     "id": "moving-servers",
     "discipline": "hosting",
     "title": "Can I host this FAQ solution on my own web server?",
-    "abstract": "Information regarding server requirements and hosting this catalog on any traditional web environment.",
     "tags": ["hosting", "deployment"]
   }
 ]
